@@ -1,0 +1,22 @@
+name: CI - Branch
+on:
+  push:
+    branches-ignore:
+      - main
+
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build
+        run: echo "Building application..."
+
+
+  test:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Run Tests
+        run: echo "Running tests..."
