@@ -1,0 +1,10 @@
+name: Reusable WF
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cicd:
+   uses: wmp-v2/learn-github-actions/.github/workflows/reuse1.yml@main
+

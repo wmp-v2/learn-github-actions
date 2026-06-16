@@ -1,0 +1,51 @@
+name: Reusable WF
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build
+        run: echo "Building ${{ inputs.app_type }} Application"
+
+  test:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - uses: actions/checkout@v6
+      - name: Test cases
+        run: "Testing ${{ inputs.app_type }}Application"
+
+  dev-deploy:
+    runs-on: self-hosted
+    needs: test
+    steps:
+      - uses: actions/checkout@v6
+      - name: Deploy to DEV
+        run: "Dev to Deploy"
+
+  qa-deploy:
+    runs-on: self-hosted
+    needs: dev-deploy
+    steps:
+      - uses: actions/checkout@v6
+      - name: qa deploy
+        run: "Deploying to QA..."
+
+  uat-deploy:
+    runs-on: self-hosted
+    needs: qa-deploy
+    steps:
+      - uses: actions/checkout@v6
+      - name: uat deploy
+        run: "Deploying to uat"
+
+  prod-deploy:
+    runs-on: self-hosted
+    needs: uat-deploy
+    steps:
+      - uses: actions/checkout@v6
+      - name: Deploy to Prod
+        run: "Deploying to prod"
